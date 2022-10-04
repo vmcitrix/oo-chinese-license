@@ -29,6 +29,26 @@ RUN sed -i "s/https:\/\/ajax.googleapis.com\/ajax\/libs\/jquery\/2.2.2\/jquery.m
 # 修改24小时为1小时
 RUN sed -i  "s/86400/3600/" /etc/onlyoffice/documentserver/default.json
 
+#替换/etc/onlyoffice/documentserver-example/production-linux.json文件里的104857600为10485760000
+RUN sed -i -e 's/104857600/10485760000/g' /etc/onlyoffice/documentserver-example/production-linux.json
+
+#在/etc/onlyoffice/documentserver-example/nginx/includes/ds-example.conf 第9行 添加  iclient_max_body_size 1000M 参数代码
+RUN sed -i '9iclient_max_body_size 1000M;' /etc/onlyoffice/documentserver-example/nginx/includes/ds-example.conf
+
+#在/etc/nginx/nginx.conf 第16行 添加16iclient_max_body_size 1000M参数代码
+RUN sed -i '16iclient_max_body_size 1000M;' /etc/nginx/nginx.conf
+
+#替换/etc/onlyoffice/documentserver/default.json代码里面的104857600为10485760000
+RUN sed -i -e 's/104857600/10485760000/g' /etc/onlyoffice/documentserver/default.json
+
+##替换/etc/onlyoffice/documentserver/default.json代码里面的300MB为3000MB
+RUN sed -i -e 's/50MB/5000MB/g' /etc/onlyoffice/documentserver/default.json
+
+#替换/etc/onlyoffice/documentserver/default.json代码里面的300MB为3000MB
+RUN sed -i -e 's/300MB/3000MB/g' /etc/onlyoffice/documentserver/default.json
+
+#替换/etc/onlyoffice/documentserver/nginx/includes/ds-common.conf下的client_max_body_size 100m为client_max_body_size 1000m
+RUN sed -i 's/^client_max_body_size 100m;$/client_max_body_size 1000m;/' /etc/onlyoffice/documentserver/nginx/includes/ds-common.conf
 
 
 

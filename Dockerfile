@@ -8,19 +8,21 @@ RUN rm -rf /var/www/onlyoffice/documentserver/sdkjs-plugins/zotero
 RUN rm -rf /var/www/onlyoffice/documentserver/sdkjs-plugins/mendeley
 RUN rm -rf /var/www/onlyoffice/documentserver/sdkjs-plugins/thesaurus
 RUN rm -rf /var/www/onlyoffice/documentserver/sdkjs-plugins/ocr
+RUN rm -rf /var/www/onlyoffice/documentserver/sdkjs-plugins/highlightcode
+RUN rm -rf /var/www/onlyoffice/documentserver/sdkjs-plugins/macros
+RUN rm -rf /var/www/onlyoffice/documentserver/sdkjs-plugins/photoeditor
+RUN rm -rf /var/www/onlyoffice/documentserver/sdkjs-plugins/speech
 
 # 移除字体
 RUN rm -rf /usr/share/fonts/truetype/dejavu
 RUN rm -rf /usr/share/fonts/truetype/liberation
+RUN rm -rf /var/www/onlyoffice/documentserver/core-fonts/*
+
+#清理缓存
+RUN sudo fc-cache -fv
 
 # 导入中文字体
 ADD ["onlyoffice-chinese-fonts/fonts for oo6/*", "/usr/share/fonts/truetype/custom/"] 
-
-# 添加一些插件
-ADD plugin-html /var/www/onlyoffice/documentserver/sdkjs-plugins/html
-ADD plugin-autocomplete /var/www/onlyoffice/documentserver/sdkjs-plugins/autocomplete
-ADD plugin-doc2md /var/www/onlyoffice/documentserver/sdkjs-plugins/doc2md
-ADD plugin-wordscounter /var/www/onlyoffice/documentserver/sdkjs-plugins/wordscounter
 
 # 修正hightlight js引用问题
 RUN sed -i "s/https:\/\/ajax.googleapis.com\/ajax\/libs\/jquery\/2.2.2\/jquery.min.js/vendor\/jQuery-2.2.2-min\/jquery-v2.2.2-min.js/" /var/www/onlyoffice/documentserver/sdkjs-plugins/highlightcode/index.html

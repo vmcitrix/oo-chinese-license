@@ -18,9 +18,6 @@ RUN rm -rf /usr/share/fonts/truetype/dejavu
 RUN rm -rf /usr/share/fonts/truetype/liberation
 RUN rm -rf /var/www/onlyoffice/documentserver/core-fonts/*
 
-#清理缓存
-RUN sudo fc-cache -fv
-
 # 导入中文字体
 ADD ["onlyoffice-chinese-fonts/fonts for oo6/*", "/usr/share/fonts/truetype/custom/"] 
 
